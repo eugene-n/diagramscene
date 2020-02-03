@@ -70,7 +70,7 @@ Arrow::Arrow(DiagramItem *startItem, DiagramItem *endItem, QGraphicsItem *parent
 //! [1]
 QRectF Arrow::boundingRect() const
 {
-    qreal extra = (pen().width() + 20) / 2.0;
+    qreal extra = (pen().width() + 10) / 2.0;
 
     return QRectF(line().p1(), QSizeF(line().p2().x() - line().p1().x(),
                                       line().p2().y() - line().p1().y()))
@@ -105,7 +105,7 @@ void Arrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
 
     QPen myPen = pen();
     myPen.setColor(myColor);
-    qreal arrowSize = 20;
+    qreal arrowSize = 10;
     painter->setPen(myPen);
     painter->setBrush(myColor);
 //! [4] //! [5]
@@ -128,19 +128,22 @@ void Arrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
 
     setLine(QLineF(intersectPoint, myStartItem->pos()));
 //! [5] //! [6]
-
     double angle = std::atan2(-line().dy(), line().dx());
-
     QPointF arrowP1 = line().p1() + QPointF(sin(angle + M_PI / 3) * arrowSize,
                                     cos(angle + M_PI / 3) * arrowSize);
     QPointF arrowP2 = line().p1() + QPointF(sin(angle + M_PI - M_PI / 3) * arrowSize,
                                     cos(angle + M_PI - M_PI / 3) * arrowSize);
-
     arrowHead.clear();
     arrowHead << line().p1() << arrowP1 << arrowP2;
 //! [6] //! [7]
     painter->drawLine(line());
     painter->drawPolygon(arrowHead);
+
+//    QPointF dist = myStartItem->pos() - myEndItem->pos();
+//    qreal length = sqrt(pow(dist.x(),2) + pow(dist.y(),2));
+//    QString qstr1 = QString::number(length, 'f', 0);
+//    painter->drawText(arrowP1.x(), arrowP1.y(), qstr1);
+
     if (isSelected()) {
         painter->setPen(QPen(myColor, 1, Qt::DashLine));
         QLineF myLine = line();

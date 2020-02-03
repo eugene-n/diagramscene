@@ -66,6 +66,15 @@ DiagramItem::DiagramItem(DiagramType diagramType, QMenu *contextMenu,
 
     QPainterPath path;
     switch (myDiagramType) {
+//        case StartEnd:
+//            path.moveTo(20, 5);
+//            path.arcTo(15, 0, 5, 5, 0, 9);
+//            path.arcTo(5, 0, 5, 5, 9, 0);
+//            path.arcTo(5, 5, 5, 5, 18, 9);
+//            path.arcTo(15, 5, 5, 5, 27, 9);
+//            path.lineTo(20, 3);
+//            myPolygon = path.toFillPolygon();
+//            break;
         case StartEnd:
             path.moveTo(200, 50);
             path.arcTo(150, 0, 50, 50, 0, 90);
@@ -75,15 +84,15 @@ DiagramItem::DiagramItem(DiagramType diagramType, QMenu *contextMenu,
             path.lineTo(200, 25);
             myPolygon = path.toFillPolygon();
             break;
-        case Conditional:
-            myPolygon << QPointF(-100, 0) << QPointF(0, 100)
-                      << QPointF(100, 0) << QPointF(0, -100)
-                      << QPointF(-100, 0);
+        case Conditional://Было 100
+            myPolygon << QPointF(-30, 0) << QPointF(0, 30)
+                      << QPointF(30, 0) << QPointF(0, -30)
+                      << QPointF(-30, 0);
             break;
-        case Step:
-            myPolygon << QPointF(-100, -100) << QPointF(100, -100)
-                      << QPointF(100, 100) << QPointF(-100, 100)
-                      << QPointF(-100, -100);
+        case Step://Было 100
+            myPolygon << QPointF(-20, -20) << QPointF(20, -20)
+                      << QPointF(20, 20) << QPointF(-20, 20)
+                      << QPointF(-20, -20);
             break;
         default:
             myPolygon << QPointF(-120, -80) << QPointF(-70, 80)

@@ -56,6 +56,7 @@
 
 #include <QtWidgets>
 
+
 const int InsertTextButton = 10;
 
 //! [0]
@@ -67,6 +68,7 @@ MainWindow::MainWindow()
 
     scene = new DiagramScene(itemMenu, this);
     scene->setSceneRect(QRectF(0, 0, 5000, 5000));
+
     connect(scene, SIGNAL(itemInserted(DiagramItem*)),
             this, SLOT(itemInserted(DiagramItem*)));
     connect(scene, SIGNAL(textInserted(QGraphicsTextItem*)),
@@ -335,22 +337,23 @@ void MainWindow::createToolBox()
     connect(buttonGroup, SIGNAL(buttonClicked(int)),
             this, SLOT(buttonGroupClicked(int)));
     QGridLayout *layout = new QGridLayout;
-    layout->addWidget(createCellWidget(tr("Conditional"), DiagramItem::Conditional), 0, 0);
-    layout->addWidget(createCellWidget(tr("Process"), DiagramItem::Step),0, 1);
-    layout->addWidget(createCellWidget(tr("Input/Output"), DiagramItem::Io), 1, 0);
+//    layout->addWidget(createCellWidget(tr("Conditional"), DiagramItem::Conditional), 0, 0);
+//    layout->addWidget(createCellWidget(tr("Process"), DiagramItem::Step),0, 1);
+//    layout->addWidget(createCellWidget(tr("Input/Output"), DiagramItem::Io), 1, 0);
+    layout->addWidget(createCellWidget(tr("Process"), DiagramItem::Step),0, 0);
 //! [21]
 
-    QToolButton *textButton = new QToolButton;
-    textButton->setCheckable(true);
-    buttonGroup->addButton(textButton, InsertTextButton);
-    textButton->setIcon(QIcon(QPixmap(":/images/textpointer.png")));
-    textButton->setIconSize(QSize(50, 50));
-    QGridLayout *textLayout = new QGridLayout;
-    textLayout->addWidget(textButton, 0, 0, Qt::AlignHCenter);
-    textLayout->addWidget(new QLabel(tr("Text")), 1, 0, Qt::AlignCenter);
-    QWidget *textWidget = new QWidget;
-    textWidget->setLayout(textLayout);
-    layout->addWidget(textWidget, 1, 1);
+//    QToolButton *textButton = new QToolButton;
+//    textButton->setCheckable(true);
+//    buttonGroup->addButton(textButton, InsertTextButton);
+//    textButton->setIcon(QIcon(QPixmap(":/images/textpointer.png")));
+//    textButton->setIconSize(QSize(50, 50));
+//    QGridLayout *textLayout = new QGridLayout;
+//    textLayout->addWidget(textButton, 0, 0, Qt::AlignHCenter);
+//    textLayout->addWidget(new QLabel(tr("Text")), 1, 0, Qt::AlignCenter);
+//    QWidget *textWidget = new QWidget;
+//    textWidget->setLayout(textLayout);
+//    layout->addWidget(textWidget, 1, 1);
 
     layout->setRowStretch(3, 10);
     layout->setColumnStretch(2, 10);
@@ -358,33 +361,33 @@ void MainWindow::createToolBox()
     QWidget *itemWidget = new QWidget;
     itemWidget->setLayout(layout);
 
-    backgroundButtonGroup = new QButtonGroup(this);
-    connect(backgroundButtonGroup, SIGNAL(buttonClicked(QAbstractButton*)),
-            this, SLOT(backgroundButtonGroupClicked(QAbstractButton*)));
+//    backgroundButtonGroup = new QButtonGroup(this);
+//    connect(backgroundButtonGroup, SIGNAL(buttonClicked(QAbstractButton*)),
+//            this, SLOT(backgroundButtonGroupClicked(QAbstractButton*)));
 
-    QGridLayout *backgroundLayout = new QGridLayout;
-    backgroundLayout->addWidget(createBackgroundCellWidget(tr("Blue Grid"),
-                                                           ":/images/background1.png"), 0, 0);
-    backgroundLayout->addWidget(createBackgroundCellWidget(tr("White Grid"),
-                                                           ":/images/background2.png"), 0, 1);
-    backgroundLayout->addWidget(createBackgroundCellWidget(tr("Gray Grid"),
-                                                           ":/images/background3.png"), 1, 0);
-    backgroundLayout->addWidget(createBackgroundCellWidget(tr("No Grid"),
-                                                           ":/images/background4.png"), 1, 1);
+//    QGridLayout *backgroundLayout = new QGridLayout;
+//    backgroundLayout->addWidget(createBackgroundCellWidget(tr("Blue Grid"),
+//                                                           ":/images/background1.png"), 0, 0);
+//    backgroundLayout->addWidget(createBackgroundCellWidget(tr("White Grid"),
+//                                                           ":/images/background2.png"), 0, 1);
+//    backgroundLayout->addWidget(createBackgroundCellWidget(tr("Gray Grid"),
+//                                                           ":/images/background3.png"), 1, 0);
+//    backgroundLayout->addWidget(createBackgroundCellWidget(tr("No Grid"),
+//                                                           ":/images/background4.png"), 1, 1);
 
-    backgroundLayout->setRowStretch(2, 10);
-    backgroundLayout->setColumnStretch(2, 10);
+//    backgroundLayout->setRowStretch(2, 10);
+//    backgroundLayout->setColumnStretch(2, 10);
 
-    QWidget *backgroundWidget = new QWidget;
-    backgroundWidget->setLayout(backgroundLayout);
+//    QWidget *backgroundWidget = new QWidget;
+//    backgroundWidget->setLayout(backgroundLayout);
 
 
 //! [22]
     toolBox = new QToolBox;
-    toolBox->setSizePolicy(QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Ignored));
+    toolBox->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Ignored));
     toolBox->setMinimumWidth(itemWidget->sizeHint().width());
-    toolBox->addItem(itemWidget, tr("Basic Flowchart Shapes"));
-    toolBox->addItem(backgroundWidget, tr("Backgrounds"));
+    toolBox->addItem(itemWidget, tr(/*"Basic Flowchart Shapes"*/"Узлы"));
+//    toolBox->addItem(backgroundWidget, tr("Backgrounds"));
 }
 //! [22]
 
@@ -443,9 +446,9 @@ void MainWindow::createMenus()
 
     itemMenu = menuBar()->addMenu(tr("&Item"));
     itemMenu->addAction(deleteAction);
-    itemMenu->addSeparator();
-    itemMenu->addAction(toFrontAction);
-    itemMenu->addAction(sendBackAction);
+//    itemMenu->addSeparator();
+//    itemMenu->addAction(toFrontAction);
+//    itemMenu->addAction(sendBackAction);
 
     aboutMenu = menuBar()->addMenu(tr("&Help"));
     aboutMenu->addAction(aboutAction);
@@ -458,62 +461,62 @@ void MainWindow::createToolbars()
 //! [25]
     editToolBar = addToolBar(tr("Edit"));
     editToolBar->addAction(deleteAction);
-    editToolBar->addAction(toFrontAction);
-    editToolBar->addAction(sendBackAction);
+//    editToolBar->addAction(toFrontAction);
+//    editToolBar->addAction(sendBackAction);
 
-    fontCombo = new QFontComboBox();
-    connect(fontCombo, SIGNAL(currentFontChanged(QFont)),
-            this, SLOT(currentFontChanged(QFont)));
+//    fontCombo = new QFontComboBox();
+//    connect(fontCombo, SIGNAL(currentFontChanged(QFont)),
+//            this, SLOT(currentFontChanged(QFont)));
 
-    fontSizeCombo = new QComboBox;
-    fontSizeCombo->setEditable(true);
-    for (int i = 8; i < 30; i = i + 2)
-        fontSizeCombo->addItem(QString().setNum(i));
-    QIntValidator *validator = new QIntValidator(2, 64, this);
-    fontSizeCombo->setValidator(validator);
-    connect(fontSizeCombo, SIGNAL(currentIndexChanged(QString)),
-            this, SLOT(fontSizeChanged(QString)));
+//    fontSizeCombo = new QComboBox;
+//    fontSizeCombo->setEditable(true);
+//    for (int i = 8; i < 30; i = i + 2)
+//        fontSizeCombo->addItem(QString().setNum(i));
+//    QIntValidator *validator = new QIntValidator(2, 64, this);
+//    fontSizeCombo->setValidator(validator);
+//    connect(fontSizeCombo, SIGNAL(currentIndexChanged(QString)),
+//            this, SLOT(fontSizeChanged(QString)));
 
-    fontColorToolButton = new QToolButton;
-    fontColorToolButton->setPopupMode(QToolButton::MenuButtonPopup);
-    fontColorToolButton->setMenu(createColorMenu(SLOT(textColorChanged()), Qt::black));
-    textAction = fontColorToolButton->menu()->defaultAction();
-    fontColorToolButton->setIcon(createColorToolButtonIcon(":/images/textpointer.png", Qt::black));
-    fontColorToolButton->setAutoFillBackground(true);
-    connect(fontColorToolButton, SIGNAL(clicked()),
-            this, SLOT(textButtonTriggered()));
+//    fontColorToolButton = new QToolButton;
+//    fontColorToolButton->setPopupMode(QToolButton::MenuButtonPopup);
+//    fontColorToolButton->setMenu(createColorMenu(SLOT(textColorChanged()), Qt::black));
+//    textAction = fontColorToolButton->menu()->defaultAction();
+//    fontColorToolButton->setIcon(createColorToolButtonIcon(":/images/textpointer.png", Qt::black));
+//    fontColorToolButton->setAutoFillBackground(true);
+//    connect(fontColorToolButton, SIGNAL(clicked()),
+//            this, SLOT(textButtonTriggered()));
 
-//! [26]
-    fillColorToolButton = new QToolButton;
-    fillColorToolButton->setPopupMode(QToolButton::MenuButtonPopup);
-    fillColorToolButton->setMenu(createColorMenu(SLOT(itemColorChanged()), Qt::white));
-    fillAction = fillColorToolButton->menu()->defaultAction();
-    fillColorToolButton->setIcon(createColorToolButtonIcon(
-                                     ":/images/floodfill.png", Qt::white));
-    connect(fillColorToolButton, SIGNAL(clicked()),
-            this, SLOT(fillButtonTriggered()));
-//! [26]
+////! [26]
+//    fillColorToolButton = new QToolButton;
+//    fillColorToolButton->setPopupMode(QToolButton::MenuButtonPopup);
+//    fillColorToolButton->setMenu(createColorMenu(SLOT(itemColorChanged()), Qt::white));
+//    fillAction = fillColorToolButton->menu()->defaultAction();
+//    fillColorToolButton->setIcon(createColorToolButtonIcon(
+//                                     ":/images/floodfill.png", Qt::white));
+//    connect(fillColorToolButton, SIGNAL(clicked()),
+//            this, SLOT(fillButtonTriggered()));
+////! [26]
 
-    lineColorToolButton = new QToolButton;
-    lineColorToolButton->setPopupMode(QToolButton::MenuButtonPopup);
-    lineColorToolButton->setMenu(createColorMenu(SLOT(lineColorChanged()), Qt::black));
-    lineAction = lineColorToolButton->menu()->defaultAction();
-    lineColorToolButton->setIcon(createColorToolButtonIcon(
-                                     ":/images/linecolor.png", Qt::black));
-    connect(lineColorToolButton, SIGNAL(clicked()),
-            this, SLOT(lineButtonTriggered()));
+//    lineColorToolButton = new QToolButton;
+//    lineColorToolButton->setPopupMode(QToolButton::MenuButtonPopup);
+//    lineColorToolButton->setMenu(createColorMenu(SLOT(lineColorChanged()), Qt::black));
+//    lineAction = lineColorToolButton->menu()->defaultAction();
+//    lineColorToolButton->setIcon(createColorToolButtonIcon(
+//                                     ":/images/linecolor.png", Qt::black));
+//    connect(lineColorToolButton, SIGNAL(clicked()),
+//            this, SLOT(lineButtonTriggered()));
 
-    textToolBar = addToolBar(tr("Font"));
-    textToolBar->addWidget(fontCombo);
-    textToolBar->addWidget(fontSizeCombo);
-    textToolBar->addAction(boldAction);
-    textToolBar->addAction(italicAction);
-    textToolBar->addAction(underlineAction);
+//    textToolBar = addToolBar(tr("Font"));
+//    textToolBar->addWidget(fontCombo);
+//    textToolBar->addWidget(fontSizeCombo);
+//    textToolBar->addAction(boldAction);
+//    textToolBar->addAction(italicAction);
+//    textToolBar->addAction(underlineAction);
 
-    colorToolBar = addToolBar(tr("Color"));
-    colorToolBar->addWidget(fontColorToolButton);
-    colorToolBar->addWidget(fillColorToolButton);
-    colorToolBar->addWidget(lineColorToolButton);
+//    colorToolBar = addToolBar(tr("Color"));
+//    colorToolBar->addWidget(fontColorToolButton);
+//    colorToolBar->addWidget(fillColorToolButton);
+//    colorToolBar->addWidget(lineColorToolButton);
 
     QToolButton *pointerButton = new QToolButton;
     pointerButton->setCheckable(true);
@@ -521,26 +524,32 @@ void MainWindow::createToolbars()
     pointerButton->setIcon(QIcon(":/images/pointer.png"));
     QToolButton *linePointerButton = new QToolButton;
     linePointerButton->setCheckable(true);
-    linePointerButton->setIcon(QIcon(":/images/linepointer.png"));
+    linePointerButton->setIcon(QIcon(":/images/arrow1.png"));
+
+    QToolButton *linePointerButtonDual = new QToolButton;
+    linePointerButtonDual->setCheckable(true);
+    linePointerButtonDual->setIcon(QIcon(":/images/arrow2.png"));
 
     pointerTypeGroup = new QButtonGroup(this);
     pointerTypeGroup->addButton(pointerButton, int(DiagramScene::MoveItem));
     pointerTypeGroup->addButton(linePointerButton, int(DiagramScene::InsertLine));
+    pointerTypeGroup->addButton(linePointerButtonDual, int(DiagramScene::InsertDualLine));
     connect(pointerTypeGroup, SIGNAL(buttonClicked(int)),
             this, SLOT(pointerGroupClicked(int)));
 
-    sceneScaleCombo = new QComboBox;
-    QStringList scales;
-    scales << tr("50%") << tr("75%") << tr("100%") << tr("125%") << tr("150%");
-    sceneScaleCombo->addItems(scales);
-    sceneScaleCombo->setCurrentIndex(2);
-    connect(sceneScaleCombo, SIGNAL(currentIndexChanged(QString)),
-            this, SLOT(sceneScaleChanged(QString)));
+//    sceneScaleCombo = new QComboBox;
+//    QStringList scales;
+//    scales << tr("50%") << tr("75%") << tr("100%") << tr("125%") << tr("150%");
+//    sceneScaleCombo->addItems(scales);
+//    sceneScaleCombo->setCurrentIndex(2);
+//    connect(sceneScaleCombo, SIGNAL(currentIndexChanged(QString)),
+//            this, SLOT(sceneScaleChanged(QString)));
 
     pointerToolbar = addToolBar(tr("Pointer type"));
     pointerToolbar->addWidget(pointerButton);
     pointerToolbar->addWidget(linePointerButton);
-    pointerToolbar->addWidget(sceneScaleCombo);
+    pointerToolbar->addWidget(linePointerButtonDual);
+//    pointerToolbar->addWidget(sceneScaleCombo);
 //! [27]
 }
 //! [27]

@@ -72,7 +72,7 @@ class DiagramScene : public QGraphicsScene
     Q_OBJECT
 
 public:
-    enum Mode { InsertItem, InsertLine, InsertText, MoveItem };
+    enum Mode { InsertItem, InsertLine, InsertText, MoveItem, InsertDualLine };
 
     explicit DiagramScene(QMenu *itemMenu, QObject *parent = nullptr);
     QFont font() const { return myFont; }
@@ -113,6 +113,7 @@ private:
     QColor myTextColor;
     QColor myItemColor;
     QColor myLineColor;
+    QColor myLineRedColor;
 };
 //! [0]
 

@@ -66,6 +66,7 @@ DiagramScene::DiagramScene(QMenu *itemMenu, QObject *parent)
     myItemColor = Qt::white;
     myTextColor = Qt::black;
     myLineColor = Qt::black;
+    myLineRedColor = Qt::red;
 }
 //! [0]
 
@@ -158,6 +159,7 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
             break;
 //! [6] //! [7]
         case InsertLine:
+        case InsertDualLine:
             line = new QGraphicsLineItem(QLineF(mouseEvent->scenePos(),
                                         mouseEvent->scenePos()));
             line->setPen(QPen(myLineColor, 2));
@@ -188,7 +190,7 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 //! [10]
 void DiagramScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
-    if (myMode == InsertLine && line != nullptr) {
+    if ((myMode == InsertLine || myMode == InsertDualLine) && line != nullptr) {
         QLineF newLine(line->line().p1(), mouseEvent->scenePos());
         line->setLine(newLine);
     } else if (myMode == MoveItem) {
@@ -200,7 +202,7 @@ void DiagramScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
 //! [11]
 void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
-    if (line != nullptr && myMode == InsertLine) {
+    if (line != nullptr && (myMode == InsertLine || myMode == InsertDualLine)) {
         QList<QGraphicsItem *> startItems = items(line->line().p1());
         if (startItems.count() && startItems.first() == line)
             startItems.removeFirst();
@@ -218,6 +220,7 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
             startItems.first() != endItems.first()) {
             DiagramItem *startItem = qgraphicsitem_cast<DiagramItem *>(startItems.first());
             DiagramItem *endItem = qgraphicsitem_cast<DiagramItem *>(endItems.first());
+
             Arrow *arrow = new Arrow(startItem, endItem);
             arrow->setColor(myLineColor);
             startItem->addArrow(arrow);
@@ -225,6 +228,19 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
             arrow->setZValue(-1000.0);
             addItem(arrow);
             arrow->updatePosition();
+
+
+            //Двунаправленная связь - добавляется обратка
+            if( myMode == InsertDualLine)
+            {
+                    arrow = new Arrow(endItem, startItem);
+                    arrow->setColor(myLineColor);
+                    startItem->addArrow(arrow);
+                    endItem->addArrow(arrow);
+                    arrow->setZValue(-1000.0);
+                    addItem(arrow);
+                    arrow->updatePosition();
+            }
         }
     }
 //! [12] //! [13]
