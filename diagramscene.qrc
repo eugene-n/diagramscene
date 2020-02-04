@@ -17,5 +17,6 @@
         <file>images/background4.png</file>
         <file>images/arrow1.png</file>
         <file>images/arrow2.png</file>
+        <file>images/pencil.png</file>
     </qresource>
 </RCC>

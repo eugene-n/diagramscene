@@ -55,14 +55,18 @@
 #include <QGraphicsSceneContextMenuEvent>
 #include <QMenu>
 #include <QPainter>
+#include <QtDebug>
 
 //! [0]
-DiagramItem::DiagramItem(DiagramType diagramType, QMenu *contextMenu,
+DiagramItem::DiagramItem(DiagramType diagramType, QMenu *contextMenu, quint16 allNodes,
              QGraphicsItem *parent)
     : QGraphicsPolygonItem(parent)
 {
     myDiagramType = diagramType;
     myContextMenu = contextMenu;
+    nNode = allNodes;
+//    qDebug() << nNode;
+//    qDebug() << NumberToLetters(nNode);
 
     QPainterPath path;
     switch (myDiagramType) {
@@ -171,3 +175,22 @@ QVariant DiagramItem::itemChange(GraphicsItemChange change, const QVariant &valu
     return value;
 }
 //! [6]
+// Return a number converted into letters
+// as in A, B, C, ..., AA, AB, AC, ..., BA, BB, BC, ...
+QString DiagramItem::NumberToLetters(quint16 number)
+{
+    QString result = "";
+    do
+    {
+        int letterNum = number % 26;
+        number /= 26;
+        char ch = (char)('A' + letterNum);
+        result = ch + result;
+    } while (number > 0);
+    return result;
+}
+
+QString DiagramItem::nameNode()
+{
+    return NumberToLetters(nNode);
+}

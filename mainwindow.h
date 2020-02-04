@@ -81,21 +81,22 @@ public:
    MainWindow();
 
 private slots:
-    void backgroundButtonGroupClicked(QAbstractButton *button);
-    void buttonGroupClicked(int id);
+//    void backgroundButtonGroupClicked(QAbstractButton *button);
+//    void buttonGroupClicked(int id);
     void deleteItem();
+    void listCreate();
     void pointerGroupClicked(int id);
-    void bringToFront();
-    void sendToBack();
+//    void bringToFront();
+//    void sendToBack();
     void itemInserted(DiagramItem *item);
     void textInserted(QGraphicsTextItem *item);
     void currentFontChanged(const QFont &font);
     void fontSizeChanged(const QString &size);
     void sceneScaleChanged(const QString &scale);
-    void textColorChanged();
-    void itemColorChanged();
-    void lineColorChanged();
-    void textButtonTriggered();
+//    void textColorChanged();
+//    void itemColorChanged();
+//    void lineColorChanged();
+//    void textButtonTriggered();
     void fillButtonTriggered();
     void lineButtonTriggered();
     void handleFontChange();
@@ -109,11 +110,11 @@ private:
     void createToolbars();
     QWidget *createBackgroundCellWidget(const QString &text,
                                         const QString &image);
-    QWidget *createCellWidget(const QString &text,
-                              DiagramItem::DiagramType type);
-    QMenu *createColorMenu(const char *slot, QColor defaultColor);
-    QIcon createColorToolButtonIcon(const QString &image, QColor color);
-    QIcon createColorIcon(QColor color);
+//    QWidget *createCellWidget(const QString &text,
+//                              DiagramItem::DiagramType type);
+//    QMenu *createColorMenu(const char *slot, QColor defaultColor);
+//    QIcon createColorToolButtonIcon(const QString &image, QColor color);
+//    QIcon createColorIcon(QColor color);
 
     DiagramScene *scene;
     QGraphicsView *view;
@@ -121,6 +122,7 @@ private:
     QAction *exitAction;
     QAction *addAction;
     QAction *deleteAction;
+//    QAction *listAction;
 
     QAction *toFrontAction;
     QAction *sendBackAction;
@@ -154,6 +156,7 @@ private:
     QAction *textAction;
     QAction *fillAction;
     QAction *lineAction;
+    QAction *listAction;
 };
 //! [0]
 

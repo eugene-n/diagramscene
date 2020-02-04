@@ -54,6 +54,7 @@
 #include <QTextCursor>
 #include <QGraphicsSceneMouseEvent>
 
+
 //! [0]
 DiagramScene::DiagramScene(QMenu *itemMenu, QObject *parent)
     : QGraphicsScene(parent)
@@ -62,11 +63,12 @@ DiagramScene::DiagramScene(QMenu *itemMenu, QObject *parent)
     myMode = MoveItem;
     myItemType = DiagramItem::Step;
     line = nullptr;
-    textItem = nullptr;
+    //textItem = nullptr;
     myItemColor = Qt::white;
-    myTextColor = Qt::black;
+    //myTextColor = Qt::black;
     myLineColor = Qt::black;
     myLineRedColor = Qt::red;
+    allNodes = 0;
 }
 //! [0]
 
@@ -83,14 +85,14 @@ void DiagramScene::setLineColor(const QColor &color)
 //! [1]
 
 //! [2]
-void DiagramScene::setTextColor(const QColor &color)
-{
-    myTextColor = color;
-    if (isItemChange(DiagramTextItem::Type)) {
-        DiagramTextItem *item = qgraphicsitem_cast<DiagramTextItem *>(selectedItems().first());
-        item->setDefaultTextColor(myTextColor);
-    }
-}
+//void DiagramScene::setTextColor(const QColor &color)
+//{
+//    myTextColor = color;
+//    if (isItemChange(DiagramTextItem::Type)) {
+//        DiagramTextItem *item = qgraphicsitem_cast<DiagramTextItem *>(selectedItems().first());
+//        item->setDefaultTextColor(myTextColor);
+//    }
+//}
 //! [2]
 
 //! [3]
@@ -105,17 +107,17 @@ void DiagramScene::setItemColor(const QColor &color)
 //! [3]
 
 //! [4]
-void DiagramScene::setFont(const QFont &font)
-{
-    myFont = font;
+//void DiagramScene::setFont(const QFont &font)
+//{
+//    myFont = font;
 
-    if (isItemChange(DiagramTextItem::Type)) {
-        QGraphicsTextItem *item = qgraphicsitem_cast<DiagramTextItem *>(selectedItems().first());
-        //At this point the selection can change so the first selected item might not be a DiagramTextItem
-        if (item)
-            item->setFont(myFont);
-    }
-}
+//    if (isItemChange(DiagramTextItem::Type)) {
+//        QGraphicsTextItem *item = qgraphicsitem_cast<DiagramTextItem *>(selectedItems().first());
+//        //At this point the selection can change so the first selected item might not be a DiagramTextItem
+//        if (item)
+//            item->setFont(myFont);
+//    }
+//}
 //! [4]
 
 void DiagramScene::setMode(Mode mode)
@@ -129,17 +131,17 @@ void DiagramScene::setItemType(DiagramItem::DiagramType type)
 }
 
 //! [5]
-void DiagramScene::editorLostFocus(DiagramTextItem *item)
-{
-    QTextCursor cursor = item->textCursor();
-    cursor.clearSelection();
-    item->setTextCursor(cursor);
+//void DiagramScene::editorLostFocus(DiagramTextItem *item)
+//{
+//    QTextCursor cursor = item->textCursor();
+//    cursor.clearSelection();
+//    item->setTextCursor(cursor);
 
-    if (item->toPlainText().isEmpty()) {
-        removeItem(item);
-        item->deleteLater();
-    }
-}
+//    if (item->toPlainText().isEmpty()) {
+//        removeItem(item);
+//        item->deleteLater();
+//    }
+//}
 //! [5]
 
 //! [6]
@@ -150,12 +152,12 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
     DiagramItem *item;
     switch (myMode) {
-        case InsertItem:
-            item = new DiagramItem(myItemType, myItemMenu);
+        case InsertItem:            
+            item = new DiagramItem(myItemType, myItemMenu, allNodes++);
             item->setBrush(myItemColor);
             addItem(item);
             item->setPos(mouseEvent->scenePos());
-            emit itemInserted(item);
+//            emit itemInserted(item); //Это переключает на стрелку
             break;
 //! [6] //! [7]
         case InsertLine:
@@ -165,20 +167,35 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
             line->setPen(QPen(myLineColor, 2));
             addItem(line);
             break;
+        case InsertNode:
+            item = new DiagramItem(myItemType, myItemMenu, allNodes++);
+            item->setBrush(myItemColor);
+            addItem(item);
+            item->setPos(mouseEvent->scenePos());
+//            emit itemInserted(item); //Это переключает на стрелку
+            break;
+//        case CreateList:
+//            item = new DiagramItem(myItemType, myItemMenu, allNodes++);
+//            item->setBrush(myItemColor);
+//            addItem(item);
+//            item->setPos(mouseEvent->scenePos());
+//            emit itemInserted(item); //Это переключает на стрелку
+//            break;
 //! [7] //! [8]
-        case InsertText:
-            textItem = new DiagramTextItem();
-            textItem->setFont(myFont);
-            textItem->setTextInteractionFlags(Qt::TextEditorInteraction);
-            textItem->setZValue(1000.0);
-            connect(textItem, SIGNAL(lostFocus(DiagramTextItem*)),
-                    this, SLOT(editorLostFocus(DiagramTextItem*)));
-            connect(textItem, SIGNAL(selectedChange(QGraphicsItem*)),
-                    this, SIGNAL(itemSelected(QGraphicsItem*)));
-            addItem(textItem);
-            textItem->setDefaultTextColor(myTextColor);
-            textItem->setPos(mouseEvent->scenePos());
-            emit textInserted(textItem);
+//        case InsertText:
+//            textItem = new DiagramTextItem();
+//            textItem->setFont(myFont);
+//            textItem->setTextInteractionFlags(Qt::TextEditorInteraction);
+//            textItem->setZValue(1000.0);
+//            connect(textItem, SIGNAL(lostFocus(DiagramTextItem*)),
+//                    this, SLOT(editorLostFocus(DiagramTextItem*)));
+//            connect(textItem, SIGNAL(selectedChange(QGraphicsItem*)),
+//                    this, SIGNAL(itemSelected(QGraphicsItem*)));
+//            addItem(textItem);
+//            textItem->setDefaultTextColor(myTextColor);
+//            textItem->setPos(mouseEvent->scenePos());
+//            emit textInserted(textItem);
+//            break;
 //! [8] //! [9]
     default:
         ;

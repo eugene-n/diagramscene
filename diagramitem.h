@@ -77,7 +77,7 @@ public:
     enum { Type = UserType + 15 };
     enum DiagramType { Step, Conditional, StartEnd, Io };
 
-    DiagramItem(DiagramType diagramType, QMenu *contextMenu, QGraphicsItem *parent = nullptr);
+    DiagramItem(DiagramType diagramType, QMenu *contextMenu, quint16 allNodes, QGraphicsItem *parent = nullptr);
 
     void removeArrow(Arrow *arrow);
     void removeArrows();
@@ -86,6 +86,7 @@ public:
     void addArrow(Arrow *arrow);
     QPixmap image() const;
     int type() const override { return Type;}
+    QString nameNode();
 
 protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) override;
@@ -96,6 +97,11 @@ private:
     QPolygonF myPolygon;
     QMenu *myContextMenu;
     QList<Arrow *> arrows;
+    quint16 nNode; //номер узла
+
+    // Return a number converted into letters
+    // as in A, B, C, ..., AA, AB, AC, ..., BA, BB, BC, ...
+    QString NumberToLetters(quint16 number);
 };
 //! [0]
 
