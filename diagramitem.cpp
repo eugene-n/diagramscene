@@ -57,7 +57,6 @@
 #include <QPainter>
 #include <QtDebug>
 
-//! [0]
 DiagramItem::DiagramItem(DiagramType diagramType, QMenu *contextMenu, quint16 allNodes,
              QGraphicsItem *parent)
     : QGraphicsPolygonItem(parent)
@@ -108,6 +107,7 @@ DiagramItem::DiagramItem(DiagramType diagramType, QMenu *contextMenu, quint16 al
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
+    labelName = new QLabel();
 }
 //! [0]
 

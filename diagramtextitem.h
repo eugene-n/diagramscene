@@ -48,64 +48,40 @@
 **
 ****************************************************************************/
 
-#ifndef DIAGRAMITEM_H
-#define DIAGRAMITEM_H
+#ifndef DIAGRAMTEXTITEM_H
+#define DIAGRAMTEXTITEM_H
 
-#include <QGraphicsPixmapItem>
-#include <QList>
-#include <QLabel>
+#include <QGraphicsTextItem>
+#include <QPen>
 
 QT_BEGIN_NAMESPACE
-class QPixmap;
+class QFocusEvent;
 class QGraphicsItem;
 class QGraphicsScene;
-class QTextEdit;
 class QGraphicsSceneMouseEvent;
-class QMenu;
-class QGraphicsSceneContextMenuEvent;
-class QPainter;
-class QStyleOptionGraphicsItem;
-class QWidget;
-class QPolygonF;
 QT_END_NAMESPACE
 
-class Arrow;
-
 //! [0]
-class DiagramItem : public QGraphicsPolygonItem
+class DiagramTextItem : public QGraphicsTextItem
 {
+    Q_OBJECT
+
 public:
-    enum { Type = UserType + 15 };
-    enum DiagramType { Step, Conditional, StartEnd, Io };
+    enum { Type = UserType + 3 };
 
-    DiagramItem(DiagramType diagramType, QMenu *contextMenu, quint16 allNodes, QGraphicsItem *parent = nullptr);
+    DiagramTextItem(QGraphicsItem *parent = 0);
 
-    void removeArrow(Arrow *arrow);
-    void removeArrows();
-    DiagramType diagramType() const { return myDiagramType; }
-    QPolygonF polygon() const { return myPolygon; }
-    void addArrow(Arrow *arrow);
-    QPixmap image() const;
-    int type() const override { return Type;}
-    QString nameNode();
-    bool Visited;
+    int type() const override { return Type; }
+
+signals:
+    void lostFocus(DiagramTextItem *item);
+    void selectedChange(QGraphicsItem *item);
 
 protected:
-    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) override;
     QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
-
-private:
-    DiagramType myDiagramType;
-    QPolygonF myPolygon;
-    QMenu *myContextMenu;
-    QList<Arrow *> arrows;
-    quint16 nNode; //номер узла
-
-    // Return a number converted into letters
-    // as in A, B, C, ..., AA, AB, AC, ..., BA, BB, BC, ...
-    QString NumberToLetters(quint16 number);
-    QLabel *labelName;
+    void focusOutEvent(QFocusEvent *event) override;
+    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
 };
 //! [0]
 
-#endif // DIAGRAMITEM_H
+#endif // DIAGRAMTEXTITEM_H
