@@ -87,6 +87,7 @@ public:
     QPixmap image() const;
     int type() const override { return Type;}
     QString nameNode();
+    bool Visited;
 
 protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) override;

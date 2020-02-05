@@ -194,3 +194,4 @@ QString DiagramItem::nameNode()
 {
     return NumberToLetters(nNode);
 }
+

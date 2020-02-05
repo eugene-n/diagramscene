@@ -126,9 +126,7 @@ void MainWindow::handleFontChange()
 
     scene->setFont(font);
 }
-//! [18]
 
-//! [19]
 void MainWindow::itemSelected(QGraphicsItem *item)
 {
     DiagramTextItem *textItem =
@@ -141,27 +139,21 @@ void MainWindow::itemSelected(QGraphicsItem *item)
     italicAction->setChecked(font.italic());
     underlineAction->setChecked(font.underline());
 }
-//! [19]
 
-//! [20]
 void MainWindow::about()
 {
     QMessageBox::about(this, tr("About Diagram Scene"),
                        tr("The <b>Diagram Scene</b> example shows "
                           "use of the graphics framework."));
 }
-//! [20]
 
-//! [21]
 void MainWindow::createToolBox()
 {
     buttonGroup = new QButtonGroup(this);
     buttonGroup->setExclusive(false);
 
 }
-//! [22]
 
-//! [23]
 void MainWindow::createActions()
 {
     toFrontAction = new QAction(QIcon(":/images/bringtofront.png"),
