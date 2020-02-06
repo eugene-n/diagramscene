@@ -141,13 +141,15 @@ QVariant DiagramItem::itemChange(GraphicsItemChange change, const QVariant &valu
 QString DiagramItem::NumberToLetters(quint16 number)
 {
     QString result = "";
+    quint16 n = number;
     do
     {
-        int letterNum = number % 26;
-        number /= 26;
+        quint16 letterNum = number % 26;
+        n /= 26;
+        number = (number - 26)/26;
         QChar ch = QChar('A' + letterNum);
         result = ch + result;
-    } while (number > 0);
+    } while (n > 0);
     return result;
 }
 
