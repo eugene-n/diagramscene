@@ -78,7 +78,7 @@ void MainWindow::itemInserted(DiagramItem *item)
 {
     pointerTypeGroup->button(int(DiagramScene::MoveItem))->setChecked(true);
     scene->setMode(DiagramScene::Mode(pointerTypeGroup->checkedId()));
-    buttonGroup->button(int(item->diagramType()))->setChecked(false);
+//    buttonGroup->button(int(item->diagramType()))->setChecked(false);
 }
 
 void MainWindow::textInserted(QGraphicsTextItem *)
@@ -156,15 +156,6 @@ void MainWindow::createToolBox()
 
 void MainWindow::createActions()
 {
-    toFrontAction = new QAction(QIcon(":/images/bringtofront.png"),
-                                tr("Bring to &Front"), this);
-    toFrontAction->setShortcut(tr("Ctrl+F"));
-    toFrontAction->setStatusTip(tr("Bring item to front"));
-
-    sendBackAction = new QAction(QIcon(":/images/sendtoback.png"), tr("Send to &Back"), this);
-    sendBackAction->setShortcut(tr("Ctrl+T"));
-    sendBackAction->setStatusTip(tr("Send item to back"));
-
     deleteAction = new QAction(QIcon(":/images/delete.png"), tr("&Delete"), this);
     deleteAction->setShortcut(tr("Delete"));
     deleteAction->setStatusTip(tr("Delete item from diagram"));
@@ -209,8 +200,8 @@ void MainWindow::createMenus()
 
     itemMenu = menuBar()->addMenu(tr("&Item"));
     itemMenu->addAction(deleteAction);
-    itemMenu->addSeparator();
-    itemMenu->addAction(listAction);
+//    itemMenu->addSeparator();
+//    itemMenu->addAction(listAction);
 
     aboutMenu = menuBar()->addMenu(tr("&Help"));
     aboutMenu->addAction(aboutAction);
@@ -225,9 +216,6 @@ void MainWindow::createToolbars()
     QToolButton *itemPointerButton = new QToolButton;
     itemPointerButton->setCheckable(true);
     itemPointerButton->setIcon(QIcon(":/images/linepointer.png"));
-    QToolButton *nodePointerButton = new QToolButton;
-    nodePointerButton->setCheckable(true);
-    nodePointerButton->setIcon(QIcon(":/images/linepointer.png"));
     QToolButton *linePointerButton = new QToolButton;
     linePointerButton->setCheckable(true);
     linePointerButton->setIcon(QIcon(":/images/arrow1.png"));
@@ -238,7 +226,6 @@ void MainWindow::createToolbars()
     pointerTypeGroup = new QButtonGroup(this);
     pointerTypeGroup->addButton(pointerButton, int(DiagramScene::MoveItem));
     pointerTypeGroup->addButton(itemPointerButton, int(DiagramScene::InsertItem));
-    pointerTypeGroup->addButton(nodePointerButton, int(DiagramScene::InsertNode));
     pointerTypeGroup->addButton(linePointerButton, int(DiagramScene::InsertLine));
     pointerTypeGroup->addButton(linePointerButtonDual, int(DiagramScene::InsertDualLine));
     connect(pointerTypeGroup, SIGNAL(buttonClicked(int)),
@@ -247,7 +234,6 @@ void MainWindow::createToolbars()
     pointerToolbar = addToolBar(tr("Pointer type"));
     pointerToolbar->addWidget(pointerButton);
     pointerToolbar->addWidget(itemPointerButton);
-    pointerToolbar->addWidget(nodePointerButton);
     pointerToolbar->addWidget(linePointerButton);
     pointerToolbar->addWidget(linePointerButtonDual);
 

@@ -55,7 +55,7 @@
 #include <QPen>
 #include <QPainter>
 
-//! [0]
+
 Arrow::Arrow(DiagramItem *startItem, DiagramItem *endItem, QGraphicsItem *parent)
     : QGraphicsLineItem(parent)
 {
@@ -65,9 +65,7 @@ Arrow::Arrow(DiagramItem *startItem, DiagramItem *endItem, QGraphicsItem *parent
     myColor = Qt::black;
     setPen(QPen(myColor, 2, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
 }
-//! [0]
 
-//! [1]
 QRectF Arrow::boundingRect() const
 {
     qreal extra = (pen().width() + 10) / 2.0;
@@ -77,26 +75,20 @@ QRectF Arrow::boundingRect() const
         .normalized()
         .adjusted(-extra, -extra, extra, extra);
 }
-//! [1]
 
-//! [2]
 QPainterPath Arrow::shape() const
 {
     QPainterPath path = QGraphicsLineItem::shape();
     path.addPolygon(arrowHead);
     return path;
 }
-//! [2]
 
-//! [3]
 void Arrow::updatePosition()
 {
     QLineF line(mapFromItem(myStartItem, 0, 0), mapFromItem(myEndItem, 0, 0));
     setLine(line);
 }
-//! [3]
 
-//! [4]
 void Arrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
           QWidget *)
 {
@@ -108,7 +100,7 @@ void Arrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
     qreal arrowSize = 10;
     painter->setPen(myPen);
     painter->setBrush(myColor);
-//! [4] //! [5]
+
 
     QLineF centerLine(myStartItem->pos(), myEndItem->pos());
     QPolygonF endPolygon = myEndItem->polygon();
@@ -127,7 +119,7 @@ void Arrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
     }
 
     setLine(QLineF(intersectPoint, myStartItem->pos()));
-//! [5] //! [6]
+
     double angle = std::atan2(-line().dy(), line().dx());
     QPointF arrowP1 = line().p1() + QPointF(sin(angle + M_PI / 3) * arrowSize,
                                     cos(angle + M_PI / 3) * arrowSize);
@@ -135,7 +127,7 @@ void Arrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
                                     cos(angle + M_PI - M_PI / 3) * arrowSize);
     arrowHead.clear();
     arrowHead << line().p1() << arrowP1 << arrowP2;
-//! [6] //! [7]
+
     painter->drawLine(line());
     painter->drawPolygon(arrowHead);
 
@@ -153,4 +145,3 @@ void Arrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
         painter->drawLine(myLine);
     }
 }
-//! [7]

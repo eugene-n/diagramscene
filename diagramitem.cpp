@@ -57,61 +57,30 @@
 #include <QPainter>
 #include <QtDebug>
 
-DiagramItem::DiagramItem(DiagramType diagramType, QMenu *contextMenu, quint16 allNodes,
+DiagramItem::DiagramItem(QMenu *contextMenu, quint16 allNodes,
              QGraphicsItem *parent)
-    : QGraphicsPolygonItem(parent)
+    : QGraphicsPolygonItem(parent) //QGraphicsEllipseItem(parent)
 {
-    myDiagramType = diagramType;
     myContextMenu = contextMenu;
     nNode = allNodes;
-//    qDebug() << nNode;
-//    qDebug() << NumberToLetters(nNode);
 
-    QPainterPath path;
-    switch (myDiagramType) {
-//        case StartEnd:
-//            path.moveTo(20, 5);
-//            path.arcTo(15, 0, 5, 5, 0, 9);
-//            path.arcTo(5, 0, 5, 5, 9, 0);
-//            path.arcTo(5, 5, 5, 5, 18, 9);
-//            path.arcTo(15, 5, 5, 5, 27, 9);
-//            path.lineTo(20, 3);
-//            myPolygon = path.toFillPolygon();
-//            break;
-        case StartEnd:
-            path.moveTo(200, 50);
-            path.arcTo(150, 0, 50, 50, 0, 90);
-            path.arcTo(50, 0, 50, 50, 90, 90);
-            path.arcTo(50, 50, 50, 50, 180, 90);
-            path.arcTo(150, 50, 50, 50, 270, 90);
-            path.lineTo(200, 25);
-            myPolygon = path.toFillPolygon();
-            break;
-        case Conditional://Было 100
-            myPolygon << QPointF(-30, 0) << QPointF(0, 30)
-                      << QPointF(30, 0) << QPointF(0, -30)
-                      << QPointF(-30, 0);
-            break;
-        case Step://Было 100
-            myPolygon << QPointF(-20, -20) << QPointF(20, -20)
-                      << QPointF(20, 20) << QPointF(-20, 20)
-                      << QPointF(-20, -20);
-            break;
-        default:
-            myPolygon << QPointF(-120, -80) << QPointF(-70, 80)
-                      << QPointF(120, 80) << QPointF(70, -80)
-                      << QPointF(-120, -80);
-            break;
-    }
+    //    Было 100
+//    myPolygon << QPointF(-20, -20) << QPointF(20, -20)
+//              << QPointF(20, 20) << QPointF(-20, 20)
+//              << QPointF(-20, -20);
+    myPolygon << QPointF(-15, -15) << QPointF(15, -15)
+              << QPointF(15, 15) << QPointF(-15, 15)
+              << QPointF(-15, -15);
+
     setPolygon(myPolygon);
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
-    labelName = new QLabel();
-}
-//! [0]
 
-//! [1]
+//    Visited = true;
+    if (Visited) setPen(QPen(Qt::red, 2));
+}
+
 void DiagramItem::removeArrow(Arrow *arrow)
 {
     int index = arrows.indexOf(arrow);
@@ -119,9 +88,7 @@ void DiagramItem::removeArrow(Arrow *arrow)
     if (index != -1)
         arrows.removeAt(index);
 }
-//! [1]
 
-//! [2]
 void DiagramItem::removeArrows()
 {
     foreach (Arrow *arrow, arrows) {
@@ -131,16 +98,12 @@ void DiagramItem::removeArrows()
         delete arrow;
     }
 }
-//! [2]
 
-//! [3]
 void DiagramItem::addArrow(Arrow *arrow)
 {
     arrows.append(arrow);
 }
-//! [3]
 
-//! [4]
 QPixmap DiagramItem::image() const
 {
     QPixmap pixmap(250, 250);
@@ -152,18 +115,16 @@ QPixmap DiagramItem::image() const
 
     return pixmap;
 }
-//! [4]
 
-//! [5]
+
+
 void DiagramItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 {
     scene()->clearSelection();
     setSelected(true);
     myContextMenu->exec(event->screenPos());
 }
-//! [5]
 
-//! [6]
 QVariant DiagramItem::itemChange(GraphicsItemChange change, const QVariant &value)
 {
     if (change == QGraphicsItem::ItemPositionChange) {
@@ -174,7 +135,7 @@ QVariant DiagramItem::itemChange(GraphicsItemChange change, const QVariant &valu
 
     return value;
 }
-//! [6]
+
 // Return a number converted into letters
 // as in A, B, C, ..., AA, AB, AC, ..., BA, BB, BC, ...
 QString DiagramItem::NumberToLetters(quint16 number)
@@ -184,7 +145,7 @@ QString DiagramItem::NumberToLetters(quint16 number)
     {
         int letterNum = number % 26;
         number /= 26;
-        char ch = (char)('A' + letterNum);
+        QChar ch = QChar('A' + letterNum);
         result = ch + result;
     } while (number > 0);
     return result;
@@ -194,4 +155,38 @@ QString DiagramItem::nameNode()
 {
     return NumberToLetters(nNode);
 }
+
+void DiagramItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *style, QWidget *)
+{
+    QGraphicsPolygonItem::paint( painter, style);
+    painter->drawText(-5, 4, nameNode());
+}
+
+
+//    class RectItem : public QObject, public QGraphicsRectItem
+//    {
+//      Q_OBJECT
+//      public:
+//        RectItem (std::string text=0, QGraphicsItem *parent = 0);
+//        void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+//          QWidget *widget = 0);
+
+//    private:
+//      std::string m_text;
+//    };
+
+//    RectItem::RectItem (std::string text, QGraphicsItem *parent)
+//    : QGraphicsRectItem(100, 100, 100, 30, parent)
+//    {
+//      m_text = text;
+//    }
+
+//    void RectItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+//                            QWidget *widget)
+//    {
+//      QPointF pos = QPointF(rect().x() + 10, rect().y() + 20);
+//      painter->drawText(pos, m_text.c_str());
+//      painter->setPen(QPen(Qt::black, 1));
+//      painter->drawRoundRect(rect());
+//    }
 

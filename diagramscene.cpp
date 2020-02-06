@@ -54,8 +54,6 @@
 #include <QTextCursor>
 #include <QGraphicsSceneMouseEvent>
 
-
-//! [0]
 DiagramScene::DiagramScene(QMenu *itemMenu, QObject *parent)
     : QGraphicsScene(parent)
 {
@@ -63,16 +61,12 @@ DiagramScene::DiagramScene(QMenu *itemMenu, QObject *parent)
     myMode = MoveItem;
     myItemType = DiagramItem::Step;
     line = nullptr;
-    //textItem = nullptr;
     myItemColor = Qt::white;
-    //myTextColor = Qt::black;
     myLineColor = Qt::black;
     myLineRedColor = Qt::red;
     allNodes = 0;
 }
-//! [0]
 
-//! [1]
 void DiagramScene::setLineColor(const QColor &color)
 {
     myLineColor = color;
@@ -110,8 +104,9 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     DiagramItem *item;
     switch (myMode) {
         case InsertItem:            
-            item = new DiagramItem(myItemType, myItemMenu, allNodes++);
+            item = new DiagramItem(myItemMenu, allNodes++);
             item->setBrush(myItemColor);
+//            item->setPen(QPen(myLineRedColor));
             addItem(item);
             item->setPos(mouseEvent->scenePos());
 //            emit itemInserted(item); //Это переключает на стрелку
@@ -124,20 +119,6 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
             line->setPen(QPen(myLineColor, 2));
             addItem(line);
             break;
-        case InsertNode:
-            item = new DiagramItem(myItemType, myItemMenu, allNodes++);
-            item->setBrush(myItemColor);
-            addItem(item);
-            item->setPos(mouseEvent->scenePos());
-//            emit itemInserted(item); //Это переключает на стрелку
-            break;
-//        case CreateList:
-//            item = new DiagramItem(myItemType, myItemMenu, allNodes++);
-//            item->setBrush(myItemColor);
-//            addItem(item);
-//            item->setPos(mouseEvent->scenePos());
-//            emit itemInserted(item); //Это переключает на стрелку
-//            break;
     default:
         ;
     }

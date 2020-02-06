@@ -53,7 +53,6 @@
 
 #include <QGraphicsPixmapItem>
 #include <QList>
-#include <QLabel>
 
 QT_BEGIN_NAMESPACE
 class QPixmap;
@@ -71,14 +70,13 @@ QT_END_NAMESPACE
 
 class Arrow;
 
-//! [0]
-class DiagramItem : public QGraphicsPolygonItem
+class DiagramItem : public QGraphicsPolygonItem //QGraphicsEllipseItem
 {
 public:
     enum { Type = UserType + 15 };
     enum DiagramType { Step, Conditional, StartEnd, Io };
 
-    DiagramItem(DiagramType diagramType, QMenu *contextMenu, quint16 allNodes, QGraphicsItem *parent = nullptr);
+    DiagramItem(QMenu *contextMenu, quint16 allNodes, QGraphicsItem *parent = nullptr);
 
     void removeArrow(Arrow *arrow);
     void removeArrows();
@@ -88,7 +86,8 @@ public:
     QPixmap image() const;
     int type() const override { return Type;}
     QString nameNode();
-    bool Visited;
+    bool Visited = false;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *style, QWidget * = nullptr) override;
 
 protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) override;
@@ -104,8 +103,6 @@ private:
     // Return a number converted into letters
     // as in A, B, C, ..., AA, AB, AC, ..., BA, BB, BC, ...
     QString NumberToLetters(quint16 number);
-    QLabel *labelName;
 };
-//! [0]
 
 #endif // DIAGRAMITEM_H
