@@ -34,7 +34,6 @@ private slots:
     void listCreate();
     void pointerGroupClicked(int id);
     void itemInserted(DiagramItem*);
-    void itemSelected(QGraphicsItem *item);
     void about();
 
 private:

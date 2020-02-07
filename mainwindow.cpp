@@ -1,7 +1,7 @@
 #include "arrow.h"
 #include "diagramitem.h"
 #include "diagramscene.h"
-#include "diagramtextitem.h"
+//#include "diagramtextitem.h"
 #include "mainwindow.h"
 
 #include <QtWidgets>
@@ -17,8 +17,7 @@ MainWindow::MainWindow()
 
     connect(scene, SIGNAL(itemInserted(DiagramItem*)),
             this, SLOT(itemInserted(DiagramItem*)));
-    connect(scene, SIGNAL(itemSelected(QGraphicsItem*)),
-            this, SLOT(itemSelected(QGraphicsItem*)));
+
     createToolbars();
 
     QHBoxLayout *layout = new QHBoxLayout;
@@ -76,19 +75,6 @@ void MainWindow::itemInserted(DiagramItem *)
 {
     pointerTypeGroup->button(int(DiagramScene::MoveItem))->setChecked(true);
     scene->setMode(DiagramScene::Mode(pointerTypeGroup->checkedId()));
-}
-
-void MainWindow::itemSelected(QGraphicsItem *item)
-{
-    DiagramTextItem *textItem =
-    qgraphicsitem_cast<DiagramTextItem *>(item);
-
-    QFont font = textItem->font();
-    fontCombo->setCurrentFont(font);
-    fontSizeCombo->setEditText(QString().setNum(font.pointSize()));
-    boldAction->setChecked(font.weight() == QFont::Bold);
-    italicAction->setChecked(font.italic());
-    underlineAction->setChecked(font.underline());
 }
 
 void MainWindow::about()
