@@ -189,5 +189,9 @@ QWidget *MainWindow::createBackgroundCellWidget(const QString &text, const QStri
 
 void MainWindow::testaction()
 {
-    qDebug() << "testaction()";
+    qDebug() << "testaction() 1";
+
+
+
+    qDebug() << "testaction() 2";
 }

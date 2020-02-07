@@ -264,3 +264,5 @@ void DiagramScene::DeselectBranches()
 //        foreach (NetworkLink link in node.Links)
 //            link.Visited = false;
 }
+
+
