@@ -250,17 +250,17 @@ bool DiagramScene::isItemChange(int type)
 //    }
 //}
 
-//// Deselect all nodes.
-//public void DeselectNodes()
-//{
+// Deselect all nodes.
+void DiagramScene::DeselectNodes()
+{
 //    foreach (NetworkNode node in AllNodes)
 //        node.Visited = false;
-//}
+}
 
-//// Deselect all nodes.
-//public void DeselectBranches()
-//{
+// Deselect all nodes.
+void DiagramScene::DeselectBranches()
+{
 //    foreach (NetworkNode node in AllNodes)
 //        foreach (NetworkLink link in node.Links)
 //            link.Visited = false;
-//}
+}
