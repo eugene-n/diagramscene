@@ -5,7 +5,7 @@
 
 #include <QMainWindow>
 
-class DiagramScene;//
+class DiagramScene;
 
 QT_BEGIN_NAMESPACE
 class QAction;
