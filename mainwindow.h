@@ -33,7 +33,7 @@ private slots:
     void deleteItem();
     void listCreate();
     void pointerGroupClicked(int id);
-    void itemInserted();
+    void itemInserted(DiagramItem*);
     void itemSelected(QGraphicsItem *item);
     void about();
 

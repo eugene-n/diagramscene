@@ -72,7 +72,7 @@ void MainWindow::pointerGroupClicked(int)
     scene->setMode(DiagramScene::Mode(pointerTypeGroup->checkedId()));
 }
 
-void MainWindow::itemInserted()
+void MainWindow::itemInserted(DiagramItem *)
 {
     pointerTypeGroup->button(int(DiagramScene::MoveItem))->setChecked(true);
     scene->setMode(DiagramScene::Mode(pointerTypeGroup->checkedId()));
