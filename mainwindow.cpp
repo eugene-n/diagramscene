@@ -103,6 +103,11 @@ void MainWindow::createActions()
     listAction->setStatusTip(tr("Создание списков связных узлов"));
     connect(listAction, SIGNAL(triggered()), this, SLOT(listCreate()));
 
+    testAction = new QAction(QIcon(":/images/background3.png"), tr("&Test"), this);
+    testAction->setShortcut(tr("Ctrl+L"));
+    testAction->setStatusTip(tr("Создание списков связных узлов"));
+    connect(testAction, SIGNAL(triggered()), this, SLOT(testaction()));
+
     exitAction = new QAction(tr("E&xit"), this);
     exitAction->setShortcuts(QKeySequence::Quit);
     exitAction->setStatusTip(tr("Quit Scenediagram example"));
@@ -160,6 +165,7 @@ void MainWindow::createToolbars()
     editToolBar->addAction(deleteAction);
     editToolBar = addToolBar(tr("List"));
     editToolBar->addAction(listAction);
+    editToolBar->addAction(testAction);
 }
 
 QWidget *MainWindow::createBackgroundCellWidget(const QString &text, const QString &image)
@@ -181,3 +187,7 @@ QWidget *MainWindow::createBackgroundCellWidget(const QString &text, const QStri
     return widget;
 }
 
+void MainWindow::testaction()
+{
+    qDebug() << "testaction()";
+}

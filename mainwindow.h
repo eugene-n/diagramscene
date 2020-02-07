@@ -35,6 +35,7 @@ private slots:
     void pointerGroupClicked(int id);
     void itemInserted(DiagramItem*);
     void about();
+    void testaction();
 
 private:
     void createToolBox();
@@ -84,7 +85,7 @@ private:
     QAction *textAction;
     QAction *fillAction;
     QAction *lineAction;
-//    QAction *listAction;
+    QAction *testAction;
 };
 
 #endif // MAINWINDOW_H
