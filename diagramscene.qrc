@@ -18,5 +18,6 @@
         <file>images/arrow1.png</file>
         <file>images/arrow2.png</file>
         <file>images/pencil.png</file>
+        <file>images/addItem.png</file>
     </qresource>
 </RCC>

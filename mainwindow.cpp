@@ -134,7 +134,7 @@ void MainWindow::createToolbars()
     pointerButton->setIcon(QIcon(":/images/pointer.png"));
     QToolButton *itemPointerButton = new QToolButton;
     itemPointerButton->setCheckable(true);
-    itemPointerButton->setIcon(QIcon(":/images/linepointer.png"));
+    itemPointerButton->setIcon(QIcon(":/images/addItem.png"));
     QToolButton *linePointerButton = new QToolButton;
     linePointerButton->setCheckable(true);
     linePointerButton->setIcon(QIcon(":/images/arrow1.png"));
