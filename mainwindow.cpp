@@ -6,8 +6,6 @@
 
 #include <QtWidgets>
 
-const int InsertTextButton = 10;
-
 MainWindow::MainWindow()
 {
     createActions();
@@ -31,7 +29,7 @@ MainWindow::MainWindow()
     widget->setLayout(layout);
 
     setCentralWidget(widget);
-    setWindowTitle(tr("Diagramscene"));
+    setWindowTitle(tr("NetAlg"));
     setUnifiedTitleAndToolBarOnMac(true);
 }
 
@@ -74,57 +72,10 @@ void MainWindow::pointerGroupClicked(int)
     scene->setMode(DiagramScene::Mode(pointerTypeGroup->checkedId()));
 }
 
-void MainWindow::itemInserted(DiagramItem *item)
+void MainWindow::itemInserted()
 {
     pointerTypeGroup->button(int(DiagramScene::MoveItem))->setChecked(true);
     scene->setMode(DiagramScene::Mode(pointerTypeGroup->checkedId()));
-//    buttonGroup->button(int(item->diagramType()))->setChecked(false);
-}
-
-void MainWindow::textInserted(QGraphicsTextItem *)
-{
-    buttonGroup->button(InsertTextButton)->setChecked(false);
-    scene->setMode(DiagramScene::Mode(pointerTypeGroup->checkedId()));
-}
-
-void MainWindow::currentFontChanged(const QFont &)
-{
-    handleFontChange();
-}
-
-void MainWindow::fontSizeChanged(const QString &)
-{
-    handleFontChange();
-}
-
-void MainWindow::sceneScaleChanged(const QString &scale)
-{
-    double newScale = scale.left(scale.indexOf(tr("%"))).toDouble() / 100.0;
-    QMatrix oldMatrix = view->matrix();
-    view->resetMatrix();
-    view->translate(oldMatrix.dx(), oldMatrix.dy());
-    view->scale(newScale, newScale);
-}
-
-void MainWindow::fillButtonTriggered()
-{
-    scene->setItemColor(qvariant_cast<QColor>(fillAction->data()));
-}
-
-void MainWindow::lineButtonTriggered()
-{
-    scene->setLineColor(qvariant_cast<QColor>(lineAction->data()));
-}
-
-void MainWindow::handleFontChange()
-{
-    QFont font = fontCombo->currentFont();
-    font.setPointSize(fontSizeCombo->currentText().toInt());
-    font.setWeight(boldAction->isChecked() ? QFont::Bold : QFont::Normal);
-    font.setItalic(italicAction->isChecked());
-    font.setUnderline(underlineAction->isChecked());
-
-    scene->setFont(font);
 }
 
 void MainWindow::itemSelected(QGraphicsItem *item)
@@ -142,9 +93,8 @@ void MainWindow::itemSelected(QGraphicsItem *item)
 
 void MainWindow::about()
 {
-    QMessageBox::about(this, tr("About Diagram Scene"),
-                       tr("The <b>Diagram Scene</b> example shows "
-                          "use of the graphics framework."));
+    QMessageBox::about(this, tr("About NetAlg"),
+                       tr("The <b>NetAlg</b>"));
 }
 
 void MainWindow::createToolBox()
@@ -171,23 +121,6 @@ void MainWindow::createActions()
     exitAction->setShortcuts(QKeySequence::Quit);
     exitAction->setStatusTip(tr("Quit Scenediagram example"));
     connect(exitAction, SIGNAL(triggered()), this, SLOT(close()));
-
-    boldAction = new QAction(tr("Bold"), this);
-    boldAction->setCheckable(true);
-    QPixmap pixmap(":/images/bold.png");
-    boldAction->setIcon(QIcon(pixmap));
-    boldAction->setShortcut(tr("Ctrl+B"));
-    connect(boldAction, SIGNAL(triggered()), this, SLOT(handleFontChange()));
-
-    italicAction = new QAction(QIcon(":/images/italic.png"), tr("Italic"), this);
-    italicAction->setCheckable(true);
-    italicAction->setShortcut(tr("Ctrl+I"));
-    connect(italicAction, SIGNAL(triggered()), this, SLOT(handleFontChange()));
-
-    underlineAction = new QAction(QIcon(":/images/underline.png"), tr("Underline"), this);
-    underlineAction->setCheckable(true);
-    underlineAction->setShortcut(tr("Ctrl+U"));
-    connect(underlineAction, SIGNAL(triggered()), this, SLOT(handleFontChange()));
 
     aboutAction = new QAction(tr("A&bout"), this);
     aboutAction->setShortcut(tr("F1"));

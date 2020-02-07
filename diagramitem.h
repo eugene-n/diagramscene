@@ -70,7 +70,7 @@ QT_END_NAMESPACE
 
 class Arrow;
 
-class DiagramItem : public QGraphicsPolygonItem //QGraphicsEllipseItem
+class DiagramItem : public QGraphicsPolygonItem
 {
 public:
     enum { Type = UserType + 15 };
