@@ -4,6 +4,7 @@
 #include <QGraphicsPixmapItem>
 #include <QList>
 
+
 QT_BEGIN_NAMESPACE
 class QPixmap;
 class QGraphicsItem;

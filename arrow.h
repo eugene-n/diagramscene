@@ -31,7 +31,7 @@ public:
     DiagramItem *endItem() const { return myEndItem; }
     void updatePosition();
 
-    bool Visited;
+    bool Visited = false;
 
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;

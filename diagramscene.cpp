@@ -106,7 +106,7 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
             DiagramItem *endItem = qgraphicsitem_cast<DiagramItem *>(endItems.first());
 
             Arrow *arrow = new Arrow(startItem, endItem);
-            arrow->setColor(myLineColor);
+//            arrow->setColor(myLineColor);
             startItem->addArrow(arrow);
             endItem->addArrow(arrow);
             arrow->setZValue(-1000.0);
@@ -117,7 +117,7 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
             if( myMode == InsertDualLine)
             {
                     arrow = new Arrow(endItem, startItem);
-                    arrow->setColor(myLineColor);
+//                    arrow->setColor(myLineColor);
                     startItem->addArrow(arrow);
                     endItem->addArrow(arrow);
                     arrow->setZValue(-1000.0);

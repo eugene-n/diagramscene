@@ -15,7 +15,7 @@ class QComboBox;
 class QFontComboBox;
 class QButtonGroup;
 class QLineEdit;
-class QGraphicsTextItem;
+//class QGraphicsTextItem;
 class QFont;
 class QToolButton;
 class QAbstractButton;
