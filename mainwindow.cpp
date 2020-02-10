@@ -63,6 +63,7 @@ void MainWindow::listCreate()
             qDebug() << str;
         }
     }
+    scene->update();
     qDebug() << "listCreate";
 }
 
@@ -83,11 +84,36 @@ void MainWindow::about()
                        tr("The <b>NetAlg</b>"));
 }
 
+void MainWindow::testaction()
+{
+    qDebug() << "testaction() 1";
+
+    foreach (QGraphicsItem *item, scene->items(Qt::AscendingOrder))
+    {
+        DiagramItem *node = qgraphicsitem_cast<DiagramItem *>(item);
+        if (node)
+            qDebug() << node->Visited;
+    }
+    foreach (QGraphicsItem *item, scene->items(Qt::AscendingOrder))
+    {
+        DiagramItem *node = qgraphicsitem_cast<DiagramItem *>(item);
+        if (node)
+            node->Visited = true;
+    }
+
+    foreach (QGraphicsItem *item, scene->items(Qt::AscendingOrder))
+    {
+        DiagramItem *node = qgraphicsitem_cast<DiagramItem *>(item);
+        if (node)
+            qDebug() << node->Visited;
+    }
+    qDebug() << "testaction() 2";
+}
+
 void MainWindow::createToolBox()
 {
     buttonGroup = new QButtonGroup(this);
     buttonGroup->setExclusive(false);
-
 }
 
 void MainWindow::createActions()
@@ -187,11 +213,3 @@ QWidget *MainWindow::createBackgroundCellWidget(const QString &text, const QStri
     return widget;
 }
 
-void MainWindow::testaction()
-{
-    qDebug() << "testaction() 1";
-
-
-
-    qDebug() << "testaction() 2";
-}

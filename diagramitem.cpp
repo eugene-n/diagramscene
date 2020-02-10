@@ -14,7 +14,7 @@ DiagramItem::DiagramItem(QMenu *contextMenu, quint16 allNodes,
     myContextMenu = contextMenu;
     nNode = allNodes;
 
-    //    Было 100
+//    Было 100
 //    myPolygon << QPointF(-20, -20) << QPointF(20, -20)
 //              << QPointF(20, 20) << QPointF(-20, 20)
 //              << QPointF(-20, -20);
