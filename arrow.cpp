@@ -14,11 +14,11 @@ Arrow::Arrow(DiagramItem *startItem, DiagramItem *endItem, QGraphicsItem *parent
     myColor = Qt::black;
     setPen(QPen(myColor, 2, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
 //    Visited = true;
-    if (Visited)
-    {
-        myColor = Qt::red;
-        setPen(QPen(myColor, 3, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
-    }
+//    if (Visited)
+//    {
+//        myColor = Qt::red;
+//        setPen(QPen(myColor, 3, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+//    }
 }
 
 QRectF Arrow::boundingRect() const
@@ -52,10 +52,18 @@ void Arrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
 
     QPen myPen = pen();
     myPen.setColor(myColor);
+    if(Visited)
+    {
+        myPen.setColor(Qt::red);
+        myPen.setWidth(3);
+    }
     qreal arrowSize = 10;
     painter->setPen(myPen);
     painter->setBrush(myColor);
-
+    if(Visited)
+    {
+        painter->setBrush(Qt::red);
+    }
 
     QLineF centerLine(myStartItem->pos(), myEndItem->pos());
     QPolygonF endPolygon = myEndItem->polygon();

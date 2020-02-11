@@ -1,7 +1,6 @@
 #include "arrow.h"
 #include "diagramitem.h"
 #include "diagramscene.h"
-//#include "diagramtextitem.h"
 #include "mainwindow.h"
 
 #include <QtWidgets>
@@ -14,7 +13,6 @@ MainWindow::MainWindow()
 
     scene = new DiagramScene(itemMenu, this);
     scene->setSceneRect(QRectF(0, 0, 5000, 5000));
-
     connect(scene, SIGNAL(itemInserted(DiagramItem*)),
             this, SLOT(itemInserted(DiagramItem*)));
 
@@ -22,6 +20,7 @@ MainWindow::MainWindow()
 
     QHBoxLayout *layout = new QHBoxLayout;
     view = new QGraphicsView(scene);
+    view->setRenderHint(QPainter::Antialiasing);
     layout->addWidget(view);
 
     QWidget *widget = new QWidget;
@@ -86,28 +85,19 @@ void MainWindow::about()
 
 void MainWindow::testaction()
 {
-    qDebug() << "testaction() 1";
-
-    foreach (QGraphicsItem *item, scene->items(Qt::AscendingOrder))
-    {
-        DiagramItem *node = qgraphicsitem_cast<DiagramItem *>(item);
-        if (node)
-            qDebug() << node->Visited;
-    }
     foreach (QGraphicsItem *item, scene->items(Qt::AscendingOrder))
     {
         DiagramItem *node = qgraphicsitem_cast<DiagramItem *>(item);
         if (node)
             node->Visited = true;
     }
-
     foreach (QGraphicsItem *item, scene->items(Qt::AscendingOrder))
     {
-        DiagramItem *node = qgraphicsitem_cast<DiagramItem *>(item);
+        Arrow *node = qgraphicsitem_cast<Arrow *>(item);
         if (node)
-            qDebug() << node->Visited;
+            node->Visited = true;
     }
-    qDebug() << "testaction() 2";
+    scene->update();
 }
 
 void MainWindow::createToolBox()

@@ -26,9 +26,6 @@ DiagramItem::DiagramItem(QMenu *contextMenu, quint16 allNodes,
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
-
-//    Visited = true;
-    if (Visited) setPen(QPen(Qt::red, 2));
 }
 
 void DiagramItem::removeArrow(Arrow *arrow)
@@ -110,7 +107,9 @@ QString DiagramItem::nameNode()
 
 void DiagramItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *style, QWidget *)
 {
+    if (Visited) setPen(QPen(Qt::red, 2));
     QGraphicsPolygonItem::paint( painter, style);
+    painter->setPen(QPen(Qt::black, 2));
     painter->drawText(-5, 4, nameNode());
 }
 
