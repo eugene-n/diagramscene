@@ -1,4 +1,4 @@
-#include "arrow.h"//asdf
+#include "arrow.h"
 
 #include <qmath.h>
 #include <QPen>
