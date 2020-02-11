@@ -1,4 +1,4 @@
-#include "arrow.h"//zzz
+#include "arrow.h"
 
 #include <qmath.h>
 #include <QPen>
