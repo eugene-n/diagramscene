@@ -13,12 +13,6 @@ Arrow::Arrow(DiagramItem *startItem, DiagramItem *endItem, QGraphicsItem *parent
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     myColor = Qt::black;
     setPen(QPen(myColor, 2, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
-//    Visited = true;
-//    if (Visited)
-//    {
-//        myColor = Qt::red;
-//        setPen(QPen(myColor, 3, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
-//    }
 }
 
 QRectF Arrow::boundingRect() const
@@ -55,7 +49,7 @@ void Arrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
     if(Visited)
     {
         myPen.setColor(Qt::red);
-        myPen.setWidth(3);
+        myPen.setWidth(2);
     }
     qreal arrowSize = 10;
     painter->setPen(myPen);

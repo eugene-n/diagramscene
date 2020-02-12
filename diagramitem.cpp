@@ -107,7 +107,12 @@ QString DiagramItem::nameNode()
 
 void DiagramItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *style, QWidget *)
 {
-    if (Visited) setPen(QPen(Qt::red, 2));
+    if (Visited)
+    {
+        setPen(QPen(Qt::red, 2));
+    }else{
+        setPen(QPen(Qt::black, 2));
+    }
     QGraphicsPolygonItem::paint( painter, style);
     painter->setPen(QPen(Qt::black, 2));
     painter->drawText(-5, 4, nameNode());
