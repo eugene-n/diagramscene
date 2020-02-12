@@ -62,8 +62,10 @@ void MainWindow::listCreate()
             qDebug() << str;
         }
     }
-    scene->update();
     qDebug() << "listCreate";
+    scene->DeselectNodes();
+    scene->DeselectBranches();
+    scene->update();
 }
 
 void MainWindow::pointerGroupClicked(int)

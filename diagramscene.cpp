@@ -3,6 +3,7 @@
 
 #include <QTextCursor>
 #include <QGraphicsSceneMouseEvent>
+#include <QtDebug>
 
 DiagramScene::DiagramScene(QMenu *itemMenu, QObject *parent)
     : QGraphicsScene(parent)
@@ -255,6 +256,17 @@ void DiagramScene::DeselectNodes()
 {
 //    foreach (NetworkNode node in AllNodes)
 //        node.Visited = false;
+    foreach (QGraphicsItem *item, items(Qt::AscendingOrder)) //Сортировка в порядке возрастания
+    {
+        DiagramItem *node = qgraphicsitem_cast<DiagramItem *>(item);
+        if (node)
+        {
+            node->Visited = false;
+            QString str = node->nameNode();
+            qDebug() << str;
+        }
+    }
+    qDebug() << "DeselectNodes()";
 }
 
 // Deselect all nodes.
@@ -263,6 +275,15 @@ void DiagramScene::DeselectBranches()
 //    foreach (NetworkNode node in AllNodes)
 //        foreach (NetworkLink link in node.Links)
 //            link.Visited = false;
+    foreach (QGraphicsItem *item, items(Qt::AscendingOrder)) //Сортировка в порядке возрастания
+    {
+        Arrow *node = qgraphicsitem_cast<Arrow *>(item);
+        if (node)
+        {
+            node->Visited = false;
+        }
+    }
+    qDebug() << "DeselectBranches()";
 }
 
 
