@@ -39,6 +39,8 @@ public:
     QString nameNode();
     bool Visited = false;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *style, QWidget * = nullptr) override;
+    DiagramItem *fromNode = nullptr;
+    Arrow *fromLink = nullptr;
 
 protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) override;

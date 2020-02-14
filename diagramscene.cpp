@@ -163,16 +163,16 @@ bool DiagramScene::isItemChange(int type)
 //    networkPictureBox.Refresh();
 //}
 
-//public List<List<NetworkNode>> GetConnectedComponents()
-// {
-//     // Reset the network.
-//     ResetNetwork();
+QList<QList<DiagramItem*>*> DiagramScene::GetConnectedComponents()
+ {
+     // Reset the network.
+     ResetNetwork();
 
-//     // Keep track of the number of nodes visited.
-//     int numVisited = 0;
+     // Keep track of the number of nodes visited.
+     int numVisited = 0;
 
-//     // Make the result list of lists.
-//     List<List<NetworkNode>> components = new List<List<NetworkNode>>();
+     // Make the result list of lists.
+     QList<QList<DiagramItem*>*> *components = new QList<QList<DiagramItem*>*>();
 
 //     // Repeat until all nodes are in a connected component.
 //     while (numVisited < AllNodes.Count)
@@ -231,32 +231,33 @@ bool DiagramScene::isItemChange(int type)
 //         }
 //     }
 
-//     // Return the components.
-//     return components;
-// }
+     // Return the components.
+     return *components;
+ }
 
-//// Reset the network.
-//private void ResetNetwork()
-//{
-//    // Deselect all nodes and branches.
-//    DeselectNodes();
-//    DeselectBranches();
+// Reset the network.
+void DiagramScene::ResetNetwork()
+{
+    // Deselect all nodes and branches.
+    DeselectNodes();
+    DeselectBranches();
 
-//    // Clear the nodes' Text properties.
-//    foreach (NetworkNode node in AllNodes)
-//    {
-//        node.FromLink = null;
-//        node.FromNode = null;
-//        node.Text = null;
-//    }
-//}
+    // Clear the nodes' Text properties.-А оно надо??????
+    foreach (QGraphicsItem *item, items())
+    {
+        DiagramItem *node = qgraphicsitem_cast<DiagramItem *>(item);
+        if (node)
+        {
+        node->fromLink = nullptr;
+        node->fromNode = nullptr;
+        }
+    }
+}
 
 // Deselect all nodes.
 void DiagramScene::DeselectNodes()
 {
-//    foreach (NetworkNode node in AllNodes)
-//        node.Visited = false;
-    foreach (QGraphicsItem *item, items(Qt::AscendingOrder)) //Сортировка в порядке возрастания
+    foreach (QGraphicsItem *item, items())
     {
         DiagramItem *node = qgraphicsitem_cast<DiagramItem *>(item);
         if (node)
@@ -272,10 +273,7 @@ void DiagramScene::DeselectNodes()
 // Deselect all nodes.
 void DiagramScene::DeselectBranches()
 {
-//    foreach (NetworkNode node in AllNodes)
-//        foreach (NetworkLink link in node.Links)
-//            link.Visited = false;
-    foreach (QGraphicsItem *item, items(Qt::AscendingOrder)) //Сортировка в порядке возрастания
+    foreach (QGraphicsItem *item, items())
     {
         Arrow *node = qgraphicsitem_cast<Arrow *>(item);
         if (node)

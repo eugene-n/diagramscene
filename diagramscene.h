@@ -3,6 +3,7 @@
 
 #include "diagramitem.h"
 #include <QGraphicsScene>
+#include <QList>
 
 QT_BEGIN_NAMESPACE
 class QGraphicsSceneMouseEvent;
@@ -27,6 +28,7 @@ public:
     void setItemColor(const QColor &color);
     void DeselectNodes();
     void DeselectBranches();
+    void ResetNetwork();
 
 public slots:
     void setMode(Mode mode);
@@ -50,6 +52,7 @@ private:
     bool leftButtonDown;
     QPointF startPoint;
     QGraphicsLineItem *line;
+    QList<QList<DiagramItem*>*> GetConnectedComponents();
 
     QColor myItemColor;
     QColor myLineColor;
