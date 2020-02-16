@@ -263,11 +263,11 @@ void DiagramScene::DeselectNodes()
         if (node)
         {
             node->Visited = false;
-            QString str = node->nameNode();
-            qDebug() << str;
+//            QString str = node->nameNode();
+//            qDebug() << str;
         }
     }
-    qDebug() << "DeselectNodes()";
+//    qDebug() << "DeselectNodes()";
 }
 
 // Deselect all nodes.
@@ -281,7 +281,7 @@ void DiagramScene::DeselectBranches()
             node->Visited = false;
         }
     }
-    qDebug() << "DeselectBranches()";
+//    qDebug() << "DeselectBranches()";
 }
 
 

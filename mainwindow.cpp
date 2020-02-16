@@ -51,18 +51,19 @@ void MainWindow::deleteItem()
      }
 }
 
-void MainWindow::listCreate()
+void MainWindow::testaction()
+//void MainWindow::listCreate()
 {
-    foreach (QGraphicsItem *item, scene->items(Qt::AscendingOrder)) //Сортировка в порядке возрастания
-    {
-        DiagramItem *node = qgraphicsitem_cast<DiagramItem *>(item);
-        if (node)
-        {
-            QString str = node->nameNode();
-            qDebug() << str;
-        }
-    }
-    qDebug() << "listCreate";
+//    foreach (QGraphicsItem *item, scene->items(Qt::AscendingOrder)) //Сортировка в порядке возрастания
+//    {
+//        DiagramItem *node = qgraphicsitem_cast<DiagramItem *>(item);
+//        if (node)
+//        {
+//            QString str = node->nameNode();
+//            qDebug() << str;
+//        }
+//    }
+//    qDebug() << "listCreate";
     scene->DeselectNodes();
     scene->DeselectBranches();
     scene->update();
@@ -85,7 +86,8 @@ void MainWindow::about()
                        tr("The <b>NetAlg</b>"));
 }
 
-void MainWindow::testaction()
+void MainWindow::listCreate()
+//void MainWindow::testaction()
 {
     foreach (QGraphicsItem *item, scene->items(Qt::AscendingOrder))
     {
